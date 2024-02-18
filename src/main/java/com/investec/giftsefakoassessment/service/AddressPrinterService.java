@@ -5,7 +5,7 @@ import com.investec.giftsefakoassessment.model.Address;
 
 import java.util.List;
 
-public interface AddressService {
+public interface AddressPrinterService {
 
     String prettyPrintAddress(Address address);
     String printAllAddressesByType(List<Address> addresses, AddressType addressType);

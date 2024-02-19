@@ -37,5 +37,4 @@ public class AddressTestController {
         return addressService.printAllAddressesByType(addresses, type);
     }
 
-
 }

@@ -9,6 +9,11 @@ public class NumbersServiceImpl implements NumbersService {
 
     @Override
     public int highestCommonFactor(int[] numbers) {
+
+        if (numbers == null || numbers.length == 0) {
+            return -1;
+        }
+
         int result = numbers[0];
         for (int i = 1; i < numbers.length; i++) {
             result = findHighestCommonDivisor(result, numbers[i]);

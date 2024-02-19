@@ -16,10 +16,6 @@ public class NumbersTestController {
 
     @PostMapping("/findHighestCommonFactor")
     public int findHighestCommonFactor(@RequestBody int[] numbers) {
-        if (numbers == null || numbers.length == 0) {
-            return -1;
-        }
-
         return numbersService.highestCommonFactor(numbers);
     }
 }

@@ -1,5 +1,8 @@
 package com.investec.giftsefakoassessment.model;
 
+import lombok.Data;
+
+@Data
 public class ProvinceOrState {
     String code;
     String name;

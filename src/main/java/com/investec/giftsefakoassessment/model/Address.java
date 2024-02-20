@@ -51,4 +51,24 @@ public class Address {
             sb.deleteCharAt(lastIndex);
         }
     }
+    public boolean numericPostalCode() {
+        if(postalCode != null) {
+            try {
+                Double.parseDouble(postalCode);
+            } catch (NumberFormatException exception) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean countryProvided() {
+        return country != null;
+    }
+
+    public boolean isAtLeastOneAddressLineProvided() {
+       if(addressLineDetail == null) return false;
+        return addressLineDetail.line1 != null && !addressLineDetail.line1.isEmpty() || addressLineDetail.line2 != null && !addressLineDetail.line2.isEmpty();
+    }
 }

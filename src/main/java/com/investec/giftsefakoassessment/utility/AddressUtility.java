@@ -1,14 +1,8 @@
 package com.investec.giftsefakoassessment.utility;
 
-import com.investec.giftsefakoassessment.model.Address;
-import com.investec.giftsefakoassessment.model.AddressLineDetail;
-import com.investec.giftsefakoassessment.model.AddressType;
-import com.investec.giftsefakoassessment.model.Country;
+import com.investec.giftsefakoassessment.model.*;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
+import javax.json.*;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +18,21 @@ public class AddressUtility {
             JsonArray jsonArray = reader.readArray();
             for (JsonObject jsonObject : jsonArray.getValuesAs(JsonObject.class)) {
                 Address address = new Address();
-                address.setId(jsonObject.getString("id"));
-                address.setCityOrTown(jsonObject.getString("cityOrTown"));
-                address.setPostalCode(jsonObject.getString("postalCode"));
-                address.setLastUpdated(jsonObject.getString("lastUpdated"));
 
+                JsonString idJsonString = jsonObject.getJsonString("id");
+                address.setId(idJsonString != null ? idJsonString.getString() : null);
+
+                JsonString cityOrTownJsonString = jsonObject.getJsonString("cityOrTown");
+                address.setCityOrTown(cityOrTownJsonString != null ? cityOrTownJsonString.getString() : null);
+
+                JsonString postalCodeJsonString = jsonObject.getJsonString("postalCode");
+                address.setPostalCode(postalCodeJsonString != null ? postalCodeJsonString.getString() : null);
+
+                JsonString lastUpdatedJsonString = jsonObject.getJsonString("lastUpdated");
+                address.setLastUpdated(lastUpdatedJsonString != null ? lastUpdatedJsonString.getString() : null);
+
+                JsonString suburbOrDistrictJsonString = jsonObject.getJsonString("suburbOrDistrict");
+                address.setSuburbOrDistrict(suburbOrDistrictJsonString != null ? suburbOrDistrictJsonString.getString() : null);
 
                 JsonObject addressTypeJson = jsonObject.getJsonObject("type");
                 if (addressTypeJson != null) {
@@ -39,9 +43,7 @@ public class AddressUtility {
                 }
 
                 JsonObject addressLineDetailJson = jsonObject.getJsonObject("addressLineDetail");
-
                 if (addressLineDetailJson != null) {
-
                     AddressLineDetail addressLineDetail = new AddressLineDetail();
                     addressLineDetail.setLine1(addressLineDetailJson.getString("line1"));
                     addressLineDetail.setLine2(addressLineDetailJson.getString("line2"));
@@ -56,6 +58,15 @@ public class AddressUtility {
                     country.setName(jsonObject.getJsonObject("country").getString("name"));
 
                     address.setCountry(country);
+                }
+
+                JsonObject provinceOrStateJson = jsonObject.getJsonObject("provinceOrState");
+                if (provinceOrStateJson != null) {
+                    ProvinceOrState provinceOrState = new ProvinceOrState();
+                    provinceOrState.setCode(jsonObject.getJsonObject("provinceOrState").getString("code"));
+                    provinceOrState.setName(jsonObject.getJsonObject("provinceOrState").getString("name"));
+
+                    address.setProvinceOrState(provinceOrState);
                 }
 
                 addresses.add(address);
